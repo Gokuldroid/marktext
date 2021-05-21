@@ -21,7 +21,7 @@
           @click.middle="closeTab(file.id)"
           @contextmenu.prevent="handleContextMenu($event, file)"
         >
-          <span>{{ file.filename }}</span>
+          <span style="margin: 0 20px">{{ file.filename.replace('.md', '') }}</span>
           <svg class="close-icon icon" aria-hidden="true"
             @click.stop="removeFileInTab(file)"
           >
@@ -247,7 +247,7 @@ export default {
       position: relative;
       padding: 0 8px;
       color: var(--editorColor50);
-      font-size: 12px;
+      font-size: 14px;
       line-height: 35px;
       height: 35px;
       max-width: 280px;

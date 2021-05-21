@@ -19,7 +19,7 @@
       ref="renameInput"
       @keydown.enter="rename"
     >
-    <span v-else>{{ file.name }}</span>
+    <span v-else>{{ file.name.replace('.md', '') }}</span>
   </div>
 </template>
 
@@ -105,6 +105,7 @@ export default {
       background: var(--sideBarItemHoverBgColor);
     }
     & > span {
+      font-size: 16px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;

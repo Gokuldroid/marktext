@@ -3,47 +3,14 @@
     <div class="title">
       <!-- Placeholder -->
     </div>
-
-    <!-- Opened tabs -->
-    <div class="opened-files">
-      <div class="title">
-        <svg class="icon icon-arrow" :class="{'fold': !showOpenedFiles}" aria-hidden="true" @click.stop="toggleOpenedFiles()">
-          <use xlink:href="#icon-arrow"></use>
-        </svg>
-        <span class="default-cursor text-overflow" @click.stop="toggleOpenedFiles()">Opened files</span>
-        <a href="javascript:;" @click.stop="saveAll(false)" title="Save All">
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-save-all"></use>
-          </svg>
-        </a>
-        <a href="javascript:;" @click.stop="saveAll(true)" title="Close All">
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-close-all"></use>
-          </svg>
-        </a>
-      </div>
-      <div class="opened-files-list" v-show="showOpenedFiles">
-        <transition-group name="list">
-          <opened-file
-            v-for="tab of tabs"
-            :key="tab.id"
-            :file="tab"
-          ></opened-file>
-        </transition-group>
-      </div>
-    </div>
-
     <!-- Project tree view -->
     <div
       class="project-tree" v-if="projectTree"
     >
       <div class="title">
-        <svg class="icon icon-arrow" :class="{'fold': !showDirectories}" aria-hidden="true" @click.stop="toggleDirectories()">
-          <use xlink:href="#icon-arrow"></use>
-        </svg>
-        <span class="default-cursor text-overflow" @click.stop="toggleDirectories()">{{ projectTree.name }}</span>
+        <b class="text-overflow">{{ projectTree.name }}</b>
       </div>
-      <div class="tree-wrapper" v-show="showDirectories">
+      <div class="tree-wrapper">
         <folder
           v-for="(folder, index) of projectTree.folders" :key="index + 'folder'"
           :folder="folder"
@@ -95,9 +62,7 @@ export default {
     this.depth = 0
     this.FolderIcon = FolderIcon
     return {
-      showDirectories: true,
       showNewInput: false,
-      showOpenedFiles: true,
       createName: ''
     }
   },
@@ -158,12 +123,6 @@ export default {
     createFile () {
       this.$store.dispatch('CHANGE_ACTIVE_ITEM', this.projectTree)
       bus.$emit('SIDEBAR::new', 'file')
-    },
-    toggleOpenedFiles () {
-      this.showOpenedFiles = !this.showOpenedFiles
-    },
-    toggleDirectories () {
-      this.showDirectories = !this.showDirectories
     }
   }
 }
